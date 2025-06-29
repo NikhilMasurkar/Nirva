@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import InitialNav from './Route';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
 import { GLOBAL } from './global';
@@ -14,11 +14,6 @@ const ProvidersHOC = () => {
 
   return (
     <PaperProvider theme={normalTheme}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={GLOBAL.COLORAPP.PRIMARY}
-        translucent={false}
-      />
       <SafeAreaView
         style={{ flex: 1, backgroundColor: GLOBAL.COLORAPP.BACKGROUND }}
       >

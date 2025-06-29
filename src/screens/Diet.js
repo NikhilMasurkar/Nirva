@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native';
 import Header from '../Components/ShareComponents/Header';
 import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 
 const Diet = () => {
+  const scrollY = new Animated.Value(0);
+
   return (
     <View style={styles.container}>
-      <Header title="Diet Plan" showMenu={false} />
-      <ScrollView style={styles.content}>
+      <Header title="Diet" scrollY={scrollY} />
+      <Animated.ScrollView
+        style={styles.content}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false },
+        )}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Nutrition & Diet Plan</Text>
         <Text style={styles.description}>
           Personalized nutrition plans to complement your fitness journey.
@@ -19,7 +28,7 @@ const Diet = () => {
             We're working on creating personalized diet plans for you.
           </Text>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };

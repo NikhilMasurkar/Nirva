@@ -15,6 +15,12 @@ const initialState = {
     dailyMinutes: 30,
   },
   history: [],
+  fitnessTracking: {
+    isEnabled: false,
+    isAuthorized: false,
+    lastSync: null,
+    platform: null,
+  },
 };
 
 const activitySlice = createSlice({
@@ -40,6 +46,15 @@ const activitySlice = createSlice({
     addActivityHistory: (state, action) => {
       state.history.unshift(action.payload);
     },
+    setFitnessTrackingStatus: (state, action) => {
+      state.fitnessTracking = { ...state.fitnessTracking, ...action.payload };
+    },
+    updateRealTimeSteps: (state, action) => {
+      const { steps, calories } = action.payload;
+      state.dailyStats.steps = steps;
+      state.dailyStats.caloriesBurned = calories;
+      state.fitnessTracking.lastSync = new Date().toISOString();
+    },
     resetActivity: state => {
       return initialState;
     },
@@ -50,6 +65,8 @@ export const {
   updateDailyStats,
   updateGoals,
   addActivityHistory,
+  setFitnessTrackingStatus,
+  updateRealTimeSteps,
   resetActivity,
 } = activitySlice.actions;
 export default activitySlice.reducer;

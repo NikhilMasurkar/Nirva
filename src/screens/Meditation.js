@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native';
 import Header from '../Components/ShareComponents/Header';
 import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 
 const Meditation = () => {
+  const scrollY = new Animated.Value(0);
+
   return (
     <View style={styles.container}>
-      <Header title="Meditation" showMenu={false} />
-      <ScrollView style={styles.content}>
+      <Header title="Meditation" scrollY={scrollY} />
+      <Animated.ScrollView
+        style={styles.content}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false },
+        )}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Meditation & Mindfulness</Text>
         <Text style={styles.description}>
           Guided meditation sessions to help you find inner peace and balance.
@@ -19,7 +28,7 @@ const Meditation = () => {
             We're preparing beautiful meditation sessions for your well-being.
           </Text>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };

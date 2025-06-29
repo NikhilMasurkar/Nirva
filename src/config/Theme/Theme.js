@@ -48,9 +48,11 @@ export const COLORS = {
   WARNING: '#FF9800',
   ERROR: '#F44336',
   INFO: '#2196F3',
+  DANGER: '#DC3545',
 
   // UI Colors
   BORDER_COLOR: '#E0E0E0',
+  BORDER: '#E0E0E0',
   LABEL_COLOR: '#9E9E9E',
 };
 

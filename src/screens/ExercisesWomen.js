@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native';
 import Header from '../Components/ShareComponents/Header';
 import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 
 const ExercisesWomen = () => {
+  const scrollY = new Animated.Value(0);
+
   return (
     <View style={styles.container}>
-      <Header title="Women's Exercises" showMenu={false} />
-      <ScrollView style={styles.content}>
+      <Header title="Women's Exercises" scrollY={scrollY} />
+      <Animated.ScrollView
+        style={styles.content}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false },
+        )}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Women's Wellness Program</Text>
         <Text style={styles.description}>
           Yoga, flexibility, and wellness exercises designed specifically for
@@ -20,7 +29,7 @@ const ExercisesWomen = () => {
             We're working hard to bring you the best women's wellness program.
           </Text>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };

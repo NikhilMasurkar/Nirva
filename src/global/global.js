@@ -6,6 +6,7 @@ const { width, height } = Dimensions.get('window');
 export default {
   SCREEN_WIDTH: width,
   SCREEN_HEIGHT: height,
+  CONTACT_US_NUMBER: '+1234567890',
   COLORAPP: {
     PRIMARY: '#E57373',
     SECONDARY: '#FF8A80',

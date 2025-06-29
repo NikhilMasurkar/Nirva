@@ -15,6 +15,7 @@ import Diet from './screens/Diet';
 import Meditation from './screens/Meditation';
 import Progress from './screens/Progress';
 import Profile from './screens/Profile';
+import ProfileUpdate from './screens/ProfileUpdate';
 import DrawerComponent from './Components/DrawerComponent/DrawerComponent';
 import ExercisesMen from './screens/ExercisesMen.js';
 
@@ -30,6 +31,7 @@ const NavigationObject = () => {
     MEDITATION,
     PROGRESS,
     PROFILE,
+    PROFILE_UPDATE,
   } = GLOBAL.PAGE;
 
   return (
@@ -58,6 +60,7 @@ const NavigationObject = () => {
       <Stack.Screen component={Meditation} name={MEDITATION} />
       <Stack.Screen component={Progress} name={PROGRESS} />
       <Stack.Screen component={Profile} name={PROFILE} />
+      <Stack.Screen component={ProfileUpdate} name={PROFILE_UPDATE} />
     </Stack.Navigator>
   );
 };
@@ -70,9 +73,9 @@ const DrawerNavigation = () => {
         swipeEdgeWidth: 0,
         swipeEnabled: false,
         drawerStyle: {
-          width: GLOBAL.SCREEN_WIDTH - 80,
+          width: GLOBAL.SCREEN_WIDTH - 100,
         },
-        drawerPosition: 'right',
+        drawerPosition: 'left',
       }}
       drawerContent={props => {
         return <DrawerComponent {...props} />;

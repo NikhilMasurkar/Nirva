@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import NMIcon from './NIcon';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, fontSizes, SPACING } from '../../config/Theme/Theme';
+import { NView } from './NView';
+import TextView from './TextView';
+import { TouchableOpacity } from './TouchableOpacity';
 
 const QuickActionCard = ({
   title,
@@ -11,7 +14,7 @@ const QuickActionCard = ({
   gradient = false,
   icon = 'dumbbell',
 }) => {
-  const CardComponent = gradient ? LinearGradient : View;
+  const CardComponent = gradient ? LinearGradient : NView;
   const cardProps = gradient
     ? {
         colors: [color, `${color}CC`],
@@ -21,13 +24,18 @@ const QuickActionCard = ({
     : { style: [styles.card, { backgroundColor: color }] };
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.container}
+      activeOpacity={0.8}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+    >
       <CardComponent
         {...cardProps}
         style={[styles.card, gradient && styles.gradientCard]}
       >
         <NMIcon name={icon} size={32} color={COLORS.WHITE} />
-        <Text style={styles.title}>{title}</Text>
+        <TextView style={styles.title}>{title}</TextView>
       </CardComponent>
     </TouchableOpacity>
   );

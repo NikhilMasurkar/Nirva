@@ -1,11 +1,11 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 
-const AppLogo = () => (
-  <View style={styles.container}>
+const AppLogo = ({ size = 120, style, containerStyle }) => (
+  <View style={[styles.container, containerStyle]}>
     <Image
       source={require('../../assets/logo.png')}
-      style={styles.logo}
+      style={[styles.logo, { width: size, height: size }, style]}
       resizeMode="contain"
     />
   </View>
@@ -15,11 +15,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   logo: {
-    width: 200,
-    height: 200,
+    // Default size will be overridden by props
   },
 });
 

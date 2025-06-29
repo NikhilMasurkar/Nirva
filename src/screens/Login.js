@@ -15,6 +15,9 @@ import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 import GLOBAL from '../global/global';
 import AppLogo from '../Components/ShareComponents/AppLogo';
 import { NScrollView } from '../Components/ShareComponents/NScrollView';
+import { useGoogleSignIn } from '../hooks/useGoogleSignIn';
+import GoogleSignInButton from '../Components/ShareComponents/GoogleSignInButton';
+import GoogleSignInService from '../services/GoogleSignInService';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -22,6 +25,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn, loading, error } = useGoogleSignIn();
+  const isGoogleSignInAvailable = GoogleSignInService.isGoogleSignInAvailable();
 
   const handleLogin = () => {
     // Dummy login validation
@@ -36,6 +41,45 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    if (!isGoogleSignInAvailable) {
+      Alert.alert(
+        'Google Sign-In Not Configured',
+        'Google Sign-In is not configured yet. Please follow the setup guide in GOOGLE_SIGNIN_SETUP.md to configure it.',
+        [{ text: 'OK' }],
+      );
+      return;
+    }
+
+    try {
+      const result = await signIn();
+      if (result.success) {
+        Alert.alert(
+          'Welcome!',
+          `Successfully signed in as ${result.user.name}`,
+          [
+            {
+              text: 'Continue',
+              onPress: () => {
+                dispatch(setLoginStatus(true));
+                navigation.navigate(GLOBAL.PAGE.DRAWER_NAVIGATION);
+              },
+            },
+          ],
+        );
+      } else {
+        Alert.alert('Sign-In Failed', result.error || 'Please try again');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const handleSkip = () => {
+    dispatch(setLoginStatus(true));
+    navigation.navigate(GLOBAL.PAGE.DRAWER_NAVIGATION);
+  };
+
   return (
     <NScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
@@ -48,7 +92,7 @@ const Login = () => {
       <View style={styles.content}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
-            <AppLogo />
+            <AppLogo size={80} />
           </View>
         </View>
 
@@ -56,6 +100,27 @@ const Login = () => {
         <Text style={styles.subtitle}>
           Save your progress to access your personal training program!
         </Text>
+
+        {/* Google Sign-In Button */}
+        <GoogleSignInButton
+          onPress={handleGoogleSignIn}
+          loading={loading}
+          title={loading ? 'Signing in...' : 'Continue with Google'}
+          style={styles.googleSignInButton}
+          disabled={!isGoogleSignInAvailable}
+        />
+
+        {!isGoogleSignInAvailable && (
+          <Text style={styles.configNote}>
+            Google Sign-In not configured yet
+          </Text>
+        )}
+
+        <View style={styles.dividerContainer}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>or</Text>
+          <View style={styles.divider} />
+        </View>
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
@@ -99,7 +164,7 @@ const Login = () => {
             <Text style={styles.confirmText}>CONFIRM</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.skipButton}>
+          <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
             <Text style={styles.skipText}>SKIP</Text>
           </TouchableOpacity>
         </View>
@@ -136,9 +201,9 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.LARGE,
   },
   avatar: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: 160,
+    height: 160,
+    borderRadius: 80,
     backgroundColor: COLORS.PRIMARY_LIGHT,
     justifyContent: 'center',
     alignItems: 'center',
@@ -159,6 +224,32 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: SPACING.LARGE * 2,
     lineHeight: 20,
+  },
+  googleSignInButton: {
+    marginBottom: SPACING.LARGE,
+  },
+  configNote: {
+    fontSize: fontSizes.small,
+    color: COLORS.TEXT_SECONDARY,
+    textAlign: 'center',
+    marginBottom: SPACING.LARGE,
+    fontStyle: 'italic',
+  },
+  dividerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: SPACING.LARGE,
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: COLORS.BORDER,
+  },
+  dividerText: {
+    marginHorizontal: SPACING.NORMAL,
+    color: COLORS.TEXT_SECONDARY,
+    fontSize: fontSizes.small,
+    fontWeight: '500',
   },
   formContainer: {
     marginBottom: SPACING.LARGE,
@@ -200,6 +291,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: SPACING.LARGE,
     marginBottom: SPACING.NORMAL,
+    shadowColor: COLORS.PRIMARY,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   confirmText: {
     color: COLORS.WHITE,

@@ -1,6 +1,7 @@
 // NavigationUtils.js
 import { createNavigationContainerRef } from '@react-navigation/native';
-import { GLOBAL } from './global';
+import GLOBAL from './global';
+import API from './JS/API';
 
 export const navigationRef = createNavigationContainerRef();
 export const NAVIGATION_CUSTOM_KEY = 'Custom';

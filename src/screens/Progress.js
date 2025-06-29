@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native';
 import { useSelector } from 'react-redux';
 import Header from '../Components/ShareComponents/Header';
 import CircularProgress from '../Components/ShareComponents/CircularProgress';
@@ -7,11 +7,19 @@ import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 
 const Progress = () => {
   const { dailyStats, goals } = useSelector(state => state.activity);
+  const scrollY = new Animated.Value(0);
 
   return (
     <View style={styles.container}>
-      <Header title="Progress" showMenu={false} />
-      <ScrollView style={styles.content}>
+      <Header title="Progress" showMenu={false} scrollY={scrollY} />
+      <Animated.ScrollView
+        style={styles.content}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false },
+        )}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Your Progress</Text>
 
         <View style={styles.progressSection}>
@@ -42,7 +50,7 @@ const Progress = () => {
             Keep up the great work! Your consistency is improving every day.
           </Text>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };

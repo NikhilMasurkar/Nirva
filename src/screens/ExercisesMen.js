@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native';
 import Header from '../Components/ShareComponents/Header';
 import { COLORS, SPACING, fontSizes } from '../config/Theme/Theme';
 
 const ExercisesMen = () => {
+  const scrollY = new Animated.Value(0);
+
   return (
     <View style={styles.container}>
-      <Header title="Men's Exercises" showMenu={false} />
-      <ScrollView style={styles.content}>
+      <Header title="Men's Exercises" scrollY={scrollY} />
+      <Animated.ScrollView
+        style={styles.content}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false },
+        )}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Men's Fitness Program</Text>
         <Text style={styles.description}>
           Strength training and endurance exercises designed specifically for
@@ -20,7 +29,7 @@ const ExercisesMen = () => {
             We're working hard to bring you the best men's fitness program.
           </Text>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };
