@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import InitialNav from './Route';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
 import { GLOBAL } from './global';
@@ -14,7 +14,14 @@ const ProvidersHOC = () => {
 
   return (
     <PaperProvider theme={normalTheme}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: GLOBAL.COLORAPP.BLUE }}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={GLOBAL.COLORAPP.PRIMARY}
+        translucent={false}
+      />
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: GLOBAL.COLORAPP.BACKGROUND }}
+      >
         <NavigationContainer
           ref={navigationRef}
           onReady={() => {
@@ -45,12 +52,6 @@ const ProvidersHOC = () => {
 };
 
 const styles = StyleSheet.create({
-  imageStyle: {
-    height: 50,
-    width: 50,
-    marginRight: 8,
-    alignSelf: 'center',
-  },
   textStyle: { color: 'white' },
   titleStyle: { color: 'white', fontWeight: 'bold' },
 });

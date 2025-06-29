@@ -4,22 +4,33 @@ const exercisesSubMenu = [
     icon: 'account',
     navigation: 'ExercisesMen',
     customNavigation: null,
+    color: '#4CAF50',
   },
   {
     name: 'Women',
     icon: 'account-outline',
     navigation: 'ExercisesWomen',
     customNavigation: null,
+    color: '#E91E63',
   },
 ];
 
 export const DRAWER_ITEMS_DATA = [
   {
+    name: 'Home',
+    icon: 'home',
+    navigation: 'Home',
+    customNavigation: null,
+    subMenu: [],
+    color: '#2196F3',
+  },
+  {
     name: 'Exercises',
     icon: 'dumbbell',
-    navigation: null,
+    navigation: 'Exercises',
     customNavigation: null,
     subMenu: exercisesSubMenu,
+    color: '#FF9800',
   },
   {
     name: 'Diet',
@@ -27,6 +38,7 @@ export const DRAWER_ITEMS_DATA = [
     navigation: 'Diet',
     customNavigation: null,
     subMenu: [],
+    color: '#4CAF50',
   },
   {
     name: 'Meditation',
@@ -34,6 +46,7 @@ export const DRAWER_ITEMS_DATA = [
     navigation: 'Meditation',
     customNavigation: null,
     subMenu: [],
+    color: '#9C27B0',
   },
   {
     name: 'Progress',
@@ -41,5 +54,46 @@ export const DRAWER_ITEMS_DATA = [
     navigation: 'Progress',
     customNavigation: null,
     subMenu: [],
+    color: '#00BCD4',
+  },
+  {
+    name: 'Profile',
+    icon: 'account-circle',
+    navigation: 'Profile',
+    customNavigation: null,
+    subMenu: [],
+    color: '#607D8B',
+  },
+  {
+    name: 'Downloads',
+    icon: 'download',
+    navigation: 'Downloads',
+    customNavigation: null,
+    subMenu: [],
+    color: '#795548',
+  },
+  {
+    name: 'Coupons',
+    icon: 'ticket-percent',
+    navigation: 'Coupons',
+    customNavigation: null,
+    subMenu: [],
+    color: '#FF5722',
+  },
+  {
+    name: 'FAQ & Feedback',
+    icon: 'help-circle',
+    navigation: 'FAQFeedback',
+    customNavigation: null,
+    subMenu: [],
+    color: '#3F51B5',
+  },
+  {
+    name: 'Invite Friends',
+    icon: 'account-plus',
+    navigation: 'InviteFriends',
+    customNavigation: null,
+    subMenu: [],
+    color: '#8BC34A',
   },
 ];

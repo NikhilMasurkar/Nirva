@@ -1,99 +1,94 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NView } from './NView';
-import TextView from './TextView';
-import { GLOBAL } from '../../global';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+import { COLORS, SPACING, fontSizes } from '../../config/Theme/Theme';
+import GLOBAL from '../../global/global';
+import NMIcon from './NIcon';
 
-export const Header = ({ onProfilePress }) => {
+const Header = ({ title = 'Nirva', showMenu = true, showProfile = true }) => {
   const navigation = useNavigation();
 
-  const HamburgerIcon = () => {
-    return (
-      <TouchableOpacity
-        style={styles.headerButton}
-        onPress={() => {
-          navigation.toggleDrawer();
-        }}
-      >
-        <Icon
-          name="menu"
-          size={24}
-          color={GLOBAL.COLORAPP.THEME.COLORS.SURFACE}
-        />
-      </TouchableOpacity>
-    );
+  const openDrawer = () => {
+    navigation.openDrawer();
   };
+
+  const openProfile = () => {
+    navigation.navigate(GLOBAL.PAGE.PROFILE);
+  };
+
   return (
-    <>
-      <StatusBar
-        backgroundColor={GLOBAL.COLORAPP.THEME.COLORS.PRIMARY}
-        barStyle="light-content"
-      />
-      <SafeAreaView style={styles.headerContainer}>
-        <NView style={styles.headerContent}>
-          {/* Left side - Menu/Logo */}
-          <HamburgerIcon />
-          {/* Center - Logo/Title */}
-          <NView style={styles.logoContainer}>
-            <TextView style={styles.logoText}>Nirva</TextView>
-            <TextView style={styles.logoSubtext}>Yoga & Wellness</TextView>
-          </NView>
-          {/* Right side - Profile */}
-          <TouchableOpacity
-            style={styles.profileButton}
-            onPress={onProfilePress}
-          >
-            <Icon
-              name="account-circle"
-              size={24}
-              color={GLOBAL.COLORAPP.THEME.COLORS.SURFACE}
-            />
-          </TouchableOpacity>
-        </NView>
-      </SafeAreaView>
-    </>
+    <LinearGradient
+      colors={COLORS.GRADIENT}
+      style={styles.container}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+    >
+      <View style={styles.headerContent}>
+        <View style={styles.leftSection}>
+          {showMenu && (
+            <TouchableOpacity onPress={openDrawer} style={styles.iconButton}>
+              <NMIcon name="menu" size={24} color={COLORS.WHITE} />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        <View style={styles.centerSection}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>Your Wellness Journey</Text>
+        </View>
+
+        <View style={styles.rightSection}>
+          {showProfile && (
+            <TouchableOpacity onPress={openProfile} style={styles.iconButton}>
+              <NMIcon name="account-circle" size={24} color={COLORS.WHITE} />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    backgroundColor: GLOBAL.COLORAPP.THEME.COLORS.PRIMARY,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+  container: {
+    paddingTop: SPACING.NORMAL,
+    paddingBottom: SPACING.NORMAL,
+    paddingHorizontal: SPACING.NORMAL,
   },
   headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: GLOBAL.COLORAPP.THEME.SPACING.BASE,
-    paddingVertical: GLOBAL.COLORAPP.THEME.SPACING.SM,
-    height: 60,
   },
-  headerButton: {
-    padding: GLOBAL.COLORAPP.THEME.SPACING.SM,
+  leftSection: {
+    width: 40,
+    alignItems: 'flex-start',
   },
-  logoContainer: {
+  centerSection: {
     flex: 1,
     alignItems: 'center',
   },
-  logoText: {
-    fontSize: GLOBAL.COLORAPP.THEME.TYPOGRAPHY.FONTSIZE.XL,
+  rightSection: {
+    width: 40,
+    alignItems: 'flex-end',
+  },
+  iconButton: {
+    padding: SPACING.XXS,
+    borderRadius: 20,
+  },
+  title: {
+    fontSize: fontSizes.h2,
     fontWeight: 'bold',
-    color: GLOBAL.COLORAPP.THEME.COLORS.SURFACE,
+    color: COLORS.WHITE,
     letterSpacing: 1,
   },
-  logoSubtext: {
-    fontSize: GLOBAL.COLORAPP.THEME.TYPOGRAPHY.FONTSIZE.XS,
-    color: GLOBAL.COLORAPP.THEME.COLORS.SURFACE + 'CC',
-    marginTop: -2,
-  },
-  profileButton: {
-    padding: GLOBAL.COLORAPP.THEME.SPACING.SM,
+  subtitle: {
+    fontSize: fontSizes.small,
+    color: COLORS.WHITE,
+    opacity: 0.8,
+    marginTop: 2,
   },
 });
+
+export default Header;

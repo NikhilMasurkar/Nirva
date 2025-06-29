@@ -4,7 +4,7 @@ import { Image, View, StyleSheet } from 'react-native';
 const AppLogo = () => (
   <View style={styles.container}>
     <Image
-      source={require('../assets/logo.png')}
+      source={require('../../assets/logo.png')}
       style={styles.logo}
       resizeMode="contain"
     />

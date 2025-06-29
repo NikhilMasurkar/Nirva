@@ -1,34 +1,42 @@
-import {Platform} from 'react-native';
-const isIOS = Platform.OS === 'ios';
+import { Platform } from 'react-native';
 const fontConfig = {
   default: {
-    extralight: {
-      fontFamily: 'NunitoSans-ExtraLight',
-      fontWeight: isIOS ? '200' : 'normal',
+    regular: {
+      fontFamily: Platform.select({
+        ios: 'System',
+        android: 'Roboto',
+      }),
+      fontWeight: 'NunitoSans-Regular',
+    },
+    medium: {
+      fontFamily: Platform.select({
+        ios: 'System',
+        android: 'NunitoSans-SemiBold',
+      }),
+      fontWeight: Platform.select({
+        ios: '500',
+        android: 'normal',
+      }),
     },
     light: {
-      fontFamily: 'NunitoSans-Light',
-      fontWeight: isIOS ? '300' : 'normal',
+      fontFamily: Platform.select({
+        ios: 'System',
+        android: 'NunitoSans-Light',
+      }),
+      fontWeight: Platform.select({
+        ios: '300',
+        android: 'normal',
+      }),
     },
-    regular: {
-      fontFamily: 'NunitoSans-Regular',
-      fontWeight: isIOS ? '400' : 'normal',
-    },
-    semibold: {
-      fontFamily: 'NunitoSans-SemiBold',
-      fontWeight: isIOS ? '600' : 'normal',
-    },
-    bold: {
-      fontFamily: 'NunitoSans-Bold',
-      fontWeight: isIOS ? '700' : 'normal',
-    },
-    extrabold: {
-      fontFamily: 'NunitoSans-ExtraBold',
-      fontWeight: isIOS ? '800' : 'normal',
-    },
-    black: {
-      fontFamily: 'NunitoSans-Black',
-      fontWeight: isIOS ? '900' : 'normal',
+    thin: {
+      fontFamily: Platform.select({
+        ios: 'System',
+        android: 'NunitoSans-ExtraLight',
+      }),
+      fontWeight: Platform.select({
+        ios: '100',
+        android: 'normal',
+      }),
     },
   },
 };

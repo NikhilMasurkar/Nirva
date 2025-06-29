@@ -1,49 +1,25 @@
-import { createStore } from '@reduxjs/toolkit';
-import { createTransform, persistReducer, persistStore } from 'redux-persist';
-import rootReducer from './Reducers/Index';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const networkTransform = createTransform(
-  (inboundState, key) => {
-    const actionQueue = [];
-
-    inboundState.actionQueue.forEach(action => {
-      if (typeof action === 'function') {
-        actionQueue.push({
-          function: action.meta.name,
-          args: action.meta.args,
-        });
-      } else if (typeof action === 'object') {
-        actionQueue.push(action);
-      }
-    });
-
-    return {
-      ...inboundState,
-      actionQueue,
-    };
-  },
-  (outboundState, key) => {
-    const actionQueue = [];
-
-    outboundState.actionQueue.forEach(action => {
-      actionQueue.push(action);
-    });
-
-    return { ...outboundState, actionQueue };
-  },
-  { whitelist: ['network'] },
-);
+import reducers from './Reducers/Index';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  transforms: [networkTransform],
-  whitelist: [],
+  whitelist: ['user', 'activity', 'exercise'],
 };
 
-const reducerPersist = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, reducers);
 
-const store = createStore(reducerPersist);
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    }),
+});
+
 export const persistor = persistStore(store);
 export default store;

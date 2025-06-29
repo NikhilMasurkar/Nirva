@@ -1,6 +1,10 @@
-import { combineReducers } from 'redux';
-import waterReducer from './waterReducer';
+import { combineReducers } from '@reduxjs/toolkit';
+import userReducer from './userSlice';
+import activityReducer from './activitySlice';
+import exerciseReducer from './exerciseSlice';
 
 export default combineReducers({
-  water: waterReducer,
+  user: userReducer,
+  activity: activityReducer,
+  exercise: exerciseReducer,
 });

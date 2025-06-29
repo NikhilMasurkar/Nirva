@@ -6,52 +6,37 @@ import {
 import fontConfig from './FontConfig';
 
 export const COLORS = {
-  // Primary Colors
-  PRIMARY: '#6366F1',
-  PRIMARY_DARK: '#4F46E5',
-  PRIMARY_LIGHT: '#A5B4FC',
+  // Primary Colors - Coral/Pink theme based on screenshots
+  PRIMARY: '#E57373',
+  PRIMARY_DARK: '#D32F2F',
+  PRIMARY_LIGHT: '#FFCDD2',
 
-  // Secondary Colors
-  SECONDARY: '#10B981',
-  SECONDARY_DARK: '#059669',
-  SECONDARY_LIGHT: '#6EE7B7',
+  SECONDARY: '#FF8A80',
+  SECONDARY_DARK: '#FF5722',
+  SECONDARY_LIGHT: '#FFCCBC',
 
-  PRIMARY: '#6B73FF', // Modern purple-blue
-  PRIMARY_DARK: '#5A60CC',
-  PRIMARY_LIGHT: '#A5B4FC',
+  ACCENT: '#FF6B9D',
 
-  SECONDARY: '#9C27B0', // Deep purple
-  SECONDARY_DARK: '#7B1FA2',
-  SECONDARY_LIGHT: '#CE93D8',
-
-  ACCENT: '#FF6B9D', // Coral pink
-
-  BACKGROUND: '#F8F9FF', // Light blue-tinted white
+  BACKGROUND: '#FAFAFA',
   SURFACE: '#FFFFFF',
 
-  TEXT_PRIMARY: '#1A1B4B', // Dark blue
-  TEXT_SECONDARY: '#6B7280', // Gray
-  TEXT_LIGHT: '#9CA3AF', // Light gray
+  TEXT_PRIMARY: '#2E2E2E',
+  TEXT_SECONDARY: '#757575',
+  TEXT_LIGHT: '#BDBDBD',
 
-  GRADIENT: ['#6B73FF', '#9C27B0'],
+  GRADIENT: ['#E57373', '#FF8A80'],
 
   // Background Colors
   BACKGROUND_PRIMARY_NORMAL: '#FFFFFF',
   BACKGROUND_PRIMARY_DARK: '#0F172A',
   BACKGROUND_SECONDARY_NORMAL: '#F8FAFC',
   BACKGROUND_SECONDARY_DARK: '#1E293B',
-  BACKGROUND_VARAINT1: '#F1F5F9',
-  BACKGROUND_VARAINT_3: '#E2E8F0',
-  BACKGROUND_VARAINT_3_BLK: '#334155',
-  BACKGROUND_VARAINT_5: '#F8FAFC',
-  BACKGROUND_VARAINT_5_BLK: '#475569',
 
   // Text Colors
-  TEXT_PRIMARY_NORMAL: '#1E293B',
+  TEXT_PRIMARY_NORMAL: '#2E2E2E',
   TEXT_PRIMARY_DARK: '#F1F5F9',
-  TEXT_INACTIVE_NORMAL: '#94A3B8',
+  TEXT_INACTIVE_NORMAL: '#757575',
   TEXT_INACTIVE_DARK: '#64748B',
-  TEXT_COMMON_SILVER: '#64748B',
 
   // Neutral Colors
   BLACK: '#000000',
@@ -59,30 +44,14 @@ export const COLORS = {
   TRANSPARENT: 'transparent',
 
   // Status Colors
-  SUCCESS: '#10B981',
-  WARNING: '#F59E0B',
-  ERROR: '#EF4444',
-  INFO: '#3B82F6',
+  SUCCESS: '#4CAF50',
+  WARNING: '#FF9800',
+  ERROR: '#F44336',
+  INFO: '#2196F3',
 
   // UI Colors
-  BORDER_COLOR: '#E2E8F0',
-  LABEL_COLOR: '#94A3B8',
-  UNDERLINE_COLOR: '#CBD5E1',
-  THUMBNAIL_BORDER_COLOR: '#E2E8F0',
-
-  // Legacy Colors (keeping for compatibility)
-  SILVER_ICON_COLOR: '#64748B',
-  SILVER_VARAINT_1: '#F1F5F9',
-  SILVER_VARAINT_2: '#F8FAFC',
-  SILVER_VARAINT_3: '#E2E8F0',
-  SILVER_VARAINT_3_BLK: '#475569',
-  BLACK_VARIANT_1: '#1E293B',
-  TRACK_SUB_MENU_BLACK: '#334155',
-  PROFILE_TEXT: '#1E293B',
-  YELLOW_BACKGROUND: '#FEF3C7',
-  GREEN: '#10B981',
-  GREEN_ICON_BACKGROUND: '#D1FAE5',
-  RED: '#EF4444',
+  BORDER_COLOR: '#E0E0E0',
+  LABEL_COLOR: '#9E9E9E',
 };
 
 export const fontSizes = {
@@ -122,44 +91,17 @@ export const normalTheme = {
   roundness: 8,
   colors: {
     ...MD2LightTheme.colors,
-    // Primary colors
     primary: COLORS.PRIMARY,
     primaryContainer: COLORS.PRIMARY_LIGHT,
-
-    // Background colors
-    backgroundPrimary: COLORS.BACKGROUND_PRIMARY_NORMAL,
-    backgroundSecondary: COLORS.BACKGROUND_SECONDARY_NORMAL,
-    backgroundVariant1: COLORS.BACKGROUND_VARAINT1,
-    backgroundVariant2: COLORS.SILVER_VARAINT_2,
-    backgroundVariant3: COLORS.BACKGROUND_VARAINT_3,
-    backgroundVariant4: COLORS.WHITE,
-    backgroundVariant5: COLORS.BACKGROUND_VARAINT_5,
-    backgroundSilverVariant: COLORS.SILVER_VARAINT_3,
-
-    // Text colors
-    textPrimary: COLORS.TEXT_PRIMARY_NORMAL,
-    textSecondary: COLORS.BLACK,
-    textSilverVariant: COLORS.BLACK,
-    textInactive: COLORS.TEXT_INACTIVE_NORMAL,
-    textSilverCommon: COLORS.TEXT_COMMON_SILVER,
-
-    // Button colors
-    buttonPrimary: COLORS.PRIMARY,
-    buttonTextPrimary: COLORS.WHITE,
-
-    // UI colors
-    iconHeader: COLORS.SILVER_ICON_COLOR,
-    borderColor: COLORS.BORDER_COLOR,
-    labelColor: COLORS.LABEL_COLOR,
+    secondary: COLORS.SECONDARY,
+    accent: COLORS.ACCENT,
+    background: COLORS.BACKGROUND,
+    surface: COLORS.SURFACE,
     error: COLORS.ERROR,
-    underlineColor: COLORS.UNDERLINE_COLOR,
-    thumbnailBorder: COLORS.THUMBNAIL_BORDER_COLOR,
-
-    // Status colors
-    green: COLORS.SUCCESS,
-    backgroundGreen: COLORS.GREEN_ICON_BACKGROUND,
-    warning: COLORS.WARNING,
-    info: COLORS.INFO,
+    onPrimary: COLORS.WHITE,
+    onSecondary: COLORS.WHITE,
+    onBackground: COLORS.TEXT_PRIMARY,
+    onSurface: COLORS.TEXT_PRIMARY,
   },
   fonts: configureFonts({ config: fontConfig, isV3: false }),
 };
@@ -169,44 +111,13 @@ export const darkTheme = {
   roundness: 8,
   colors: {
     ...MD2DarkTheme.colors,
-    // Primary colors
     primary: COLORS.PRIMARY_LIGHT,
     primaryContainer: COLORS.PRIMARY_DARK,
-
-    // Background colors
-    backgroundPrimary: COLORS.BACKGROUND_PRIMARY_DARK,
-    backgroundSecondary: COLORS.BACKGROUND_SECONDARY_DARK,
-    backgroundVariant1: COLORS.BACKGROUND_PRIMARY_DARK,
-    backgroundVariant2: COLORS.BLACK_VARIANT_1,
-    backgroundVariant3: COLORS.BACKGROUND_VARAINT_3_BLK,
-    backgroundVariant4: COLORS.BLACK_VARIANT_1,
-    backgroundVariant5: COLORS.BACKGROUND_VARAINT_5_BLK,
-    backgroundSilverVariant: COLORS.SILVER_VARAINT_3_BLK,
-
-    // Text colors
-    textPrimary: COLORS.TEXT_PRIMARY_DARK,
-    textSecondary: COLORS.SILVER_ICON_COLOR,
-    textSilverVariant: COLORS.SILVER_VARAINT_1,
-    textInactive: COLORS.TEXT_INACTIVE_DARK,
-    textSilverCommon: COLORS.TEXT_COMMON_SILVER,
-
-    // Button colors
-    buttonPrimary: COLORS.PRIMARY_LIGHT,
-    buttonTextPrimary: COLORS.BLACK,
-
-    // UI colors
-    iconHeader: COLORS.SILVER_ICON_COLOR,
-    borderColor: COLORS.TRANSPARENT,
-    labelColor: COLORS.LABEL_COLOR,
+    secondary: COLORS.SECONDARY,
+    accent: COLORS.ACCENT,
+    background: COLORS.BACKGROUND_PRIMARY_DARK,
+    surface: COLORS.BACKGROUND_SECONDARY_DARK,
     error: COLORS.ERROR,
-    underlineColor: COLORS.UNDERLINE_COLOR,
-    thumbnailBorder: COLORS.SUCCESS,
-
-    // Status colors
-    green: COLORS.SUCCESS,
-    backgroundGreen: COLORS.WHITE,
-    warning: COLORS.WARNING,
-    info: COLORS.INFO,
   },
   fonts: configureFonts({ config: fontConfig, isV3: false }),
 };
